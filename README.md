@@ -81,3 +81,7 @@ v1.0
 flutter pub get
 flutter run
 ```
+
+## License
+
+For educational purposes only.
