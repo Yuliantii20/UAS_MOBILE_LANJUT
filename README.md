@@ -1,16 +1,42 @@
-# uas_mobile_lanjut
+# DigiNews Indonesia
 
-A new Flutter project.
+Aplikasi berita berbasis Flutter yang menerapkan konsep **Offline First** sebagai tugas UAS Mobile Programming Lanjut.
 
-## Getting Started
+## Fitur
 
-This project is a starting point for a Flutter application.
+- Menampilkan berita terbaru dari API
+- Menyimpan berita secara offline
+- Favorite berita
+- Dark Mode
+- MethodChannel (Reverse NIM)
+- Lottie Animation (Easter Egg)
 
-A few resources to get you started if this is your first Flutter project:
+## Teknologi
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Flutter
+- Dio
+- Flutter Bloc
+- SharedPreferences
+- Isar Database
+- Go Router
+- Get It
+- Lottie
+- MethodChannel Android
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Struktur Project
+
+```
+lib/
+├── core/
+├── features/
+│   ├── home/
+│   ├── profile/
+│   └── splash/
+└── main.dart
+```
+
+## Developer
+
+Nama : Yulianti Awaliyah
+
+Project : UAS Mobile Programming Lanjut
