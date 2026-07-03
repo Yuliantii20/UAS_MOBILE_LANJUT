@@ -40,3 +40,7 @@ lib/
 Nama : Yulianti Awaliyah
 
 Project : UAS Mobile Programming Lanjut
+
+## Deskripsi
+
+Aplikasi ini dibuat sebagai UAS Mobile Programming Lanjut dengan konsep Offline First.
