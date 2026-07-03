@@ -1,0 +1,68 @@
+name: uas_mobile_lanjut
+description: DigiNews Offline First
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.9.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # Navigation
+  go_router: ^16.2.0
+
+  # Dependency Injection
+  get_it: ^9.0.5
+
+  # Networking
+  dio: ^5.9.0
+
+  # State Management
+  flutter_bloc: ^9.1.1
+  equatable: ^2.0.7
+
+  # Offline Database
+  isar: 3.1.0+1
+  isar_flutter_libs: 3.1.0+1
+
+  # Local Storage
+  shared_preferences: ^2.5.3
+
+  # Connectivity
+  connectivity_plus: ^6.1.5
+
+  # Background Task
+  workmanager: ^0.7.0
+
+  # Browser
+  url_launcher: ^6.3.0
+
+  # Animation
+  lottie: ^3.3.1
+
+  # Utility
+  logger: ^2.6.1
+  path_provider: ^2.1.5
+  path: ^1.9.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+  build_runner: ^2.4.13
+  isar_generator: 3.1.0+1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/lottie/
