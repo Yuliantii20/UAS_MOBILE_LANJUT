@@ -44,3 +44,10 @@ Project : UAS Mobile Programming Lanjut
 ## Deskripsi
 
 Aplikasi ini dibuat sebagai UAS Mobile Programming Lanjut dengan konsep Offline First.
+
+## Struktur Folder
+
+- lib/
+- assets/
+- android/
+- ios/
