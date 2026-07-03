@@ -70,3 +70,7 @@ Aplikasi ini dibuat sebagai UAS Mobile Programming Lanjut dengan konsep Offline 
 ## Developer
 
 Nama : Yulianti Awaliyah
+
+## Version
+
+v1.0
