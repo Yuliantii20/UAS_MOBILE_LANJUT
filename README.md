@@ -59,3 +59,10 @@ Aplikasi ini dibuat sebagai UAS Mobile Programming Lanjut dengan konsep Offline 
 - Dio
 - Flutter Bloc
 - SharedPreferences
+
+## Fitur
+
+- Offline News
+- Favorite News
+- Dark Mode
+- MethodChannel
