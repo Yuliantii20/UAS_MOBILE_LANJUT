@@ -66,3 +66,7 @@ Aplikasi ini dibuat sebagai UAS Mobile Programming Lanjut dengan konsep Offline 
 - Favorite News
 - Dark Mode
 - MethodChannel
+
+## Developer
+
+Nama : Yulianti Awaliyah
