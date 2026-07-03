@@ -51,3 +51,11 @@ Aplikasi ini dibuat sebagai UAS Mobile Programming Lanjut dengan konsep Offline 
 - assets/
 - android/
 - ios/
+
+## Tech Stack
+
+- Flutter
+- Dart
+- Dio
+- Flutter Bloc
+- SharedPreferences
