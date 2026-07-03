@@ -74,3 +74,10 @@ Nama : Yulianti Awaliyah
 ## Version
 
 v1.0
+
+## Menjalankan Project
+
+```bash
+flutter pub get
+flutter run
+```
