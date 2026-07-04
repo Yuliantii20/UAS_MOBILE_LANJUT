@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Java
+      - name: Setup Java 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -24,55 +24,48 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: "3.35.7"
+          cache: true
+
+      - name: Flutter Doctor
+        run: flutter doctor -v
 
       - name: Install Dependencies
         run: flutter pub get
 
-      - name: Install Android SDK 35
-        run: |
-          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-35"
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "build-tools;35.0.0"
-
       - name: Find Isar build.gradle
         run: |
-          find ~/.pub-cache -name build.gradle | grep isar_flutter_libs
+          find ~/.pub-cache -path "*isar_flutter_libs*/android/build.gradle"
 
       - name: Patch Isar
+        shell: bash
         run: |
-          FILE=$(find ~/.pub-cache -name build.gradle | grep isar_flutter_libs)
+          FILE=$(find ~/.pub-cache -path "*isar_flutter_libs*/android/build.gradle")
 
           echo "PATCH FILE = $FILE"
 
-          if [ -z "$FILE" ]; then
-            echo "Isar build.gradle tidak ditemukan!"
+          if [ ! -f "$FILE" ]; then
+            echo "File build.gradle Isar tidak ditemukan!"
             exit 1
           fi
 
-          python3 <<EOF
-from pathlib import Path
+          # Tambah namespace jika belum ada
+          if ! grep -q "namespace" "$FILE"; then
+            sed -i '/android {/a\    namespace "dev.isar.isar_flutter_libs"' "$FILE"
+          fi
 
-file = Path("$FILE")
-text = file.read_text()
+          # Ganti compileSdkVersion menjadi 35
+          sed -i 's/compileSdkVersion 30/compileSdkVersion 35/g' "$FILE"
+          sed -i 's/compileSdkVersion 31/compileSdkVersion 35/g' "$FILE"
+          sed -i 's/compileSdkVersion 32/compileSdkVersion 35/g' "$FILE"
+          sed -i 's/compileSdkVersion 33/compileSdkVersion 35/g' "$FILE"
+          sed -i 's/compileSdkVersion 34/compileSdkVersion 35/g' "$FILE"
 
-if 'namespace "dev.isar.isar_flutter_libs"' not in text:
-    text = text.replace(
-        "android {",
-        'android {\n    namespace "dev.isar.isar_flutter_libs"'
-    )
-
-text = text.replace(
-    "compileSdkVersion 30",
-    "compileSdkVersion 35"
-)
-
-file.write_text(text)
-
-print(file.read_text())
-EOF
+          echo "=============================="
+          cat "$FILE"
+          echo "=============================="
 
       - name: Build APK
-        run: flutter build apk --release
+        run: flutter build apk --release --verbose
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
