@@ -23,33 +23,30 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-        flutter-version: "3.35.7"
+          flutter-version: "3.35.7"
 
       - name: Install Dependencies
         run: flutter pub get
 
+      - name: Find Isar
+        run: |
+          find ~/.pub-cache -name build.gradle | grep isar_flutter_libs
+
       - name: Patch Isar Namespace
         run: |
-          FILE=$(find $HOME/.pub-cache -type f -path "*/isar_flutter_libs-3.1.0+1/android/build.gradle")
+          FILE=$(find ~/.pub-cache -name build.gradle | grep isar_flutter_libs)
 
           echo "PATCH FILE = $FILE"
 
-          python3 - <<EOF
-from pathlib import Path
+          if [ -z "$FILE" ]; then
+            echo "Isar build.gradle tidak ditemukan!"
+            exit 1
+          fi
 
-file = Path("$FILE")
-text = file.read_text()
+          grep namespace "$FILE" || sed -i '/android {/a\    namespace "dev.isar.isar_flutter_libs"' "$FILE"
 
-if "namespace" not in text:
-    text = text.replace(
-        "android {",
-        """android {
-    namespace 'dev.isar.isar_flutter_libs'"""
-    )
-    file.write_text(text)
-
-print(file.read_text())
-EOF
+          echo "========== HASIL PATCH =========="
+          cat "$FILE"
 
       - name: Build APK
         run: flutter build apk --release
