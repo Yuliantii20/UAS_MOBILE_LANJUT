@@ -1,3 +1,4 @@
+// Application Routes
 import 'package:go_router/go_router.dart';
 
 import '../../features/home/presentation/pages/main_page.dart';
