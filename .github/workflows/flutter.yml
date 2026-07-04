@@ -30,15 +30,26 @@ jobs:
 
       - name: Patch Isar Namespace
         run: |
-          FILE="$HOME/.pub-cache/hosted/pub.dev/isar_flutter_libs-3.1.0+1/android/build.gradle"
+          FILE=$(find $HOME/.pub-cache -type f -path "*/isar_flutter_libs-3.1.0+1/android/build.gradle")
 
-          echo "Before patch:"
-          cat "$FILE"
+          echo "PATCH FILE = $FILE"
 
-          sed -i '/android {/a\    namespace "dev.isar.isar_flutter_libs"' "$FILE"
+          python3 - <<EOF
+from pathlib import Path
 
-          echo "After patch:"
-          cat "$FILE"
+file = Path("$FILE")
+text = file.read_text()
+
+if "namespace" not in text:
+    text = text.replace(
+        "android {",
+        """android {
+    namespace 'dev.isar.isar_flutter_libs'"""
+    )
+    file.write_text(text)
+
+print(file.read_text())
+EOF
 
       - name: Build APK
         run: flutter build apk --release
