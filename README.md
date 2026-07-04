@@ -85,3 +85,9 @@ flutter run
 ## License
 
 For educational purposes only.
+
+## Testing
+
+- Android Emulator ✔
+- Offline Mode ✔
+- MethodChannel ✔
