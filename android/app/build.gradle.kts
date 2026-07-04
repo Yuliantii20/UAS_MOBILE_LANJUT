@@ -7,16 +7,14 @@ plugins {
 android {
     namespace = "com.example.uas_mobile_lanjut"
 
-    compileSdk = 35
+    compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
     defaultConfig {
         applicationId = "com.example.uas_mobile_lanjut"
 
-        // Isar membutuhkan minimal SDK 21
-        minSdk = 21
-
-        targetSdk = 35
+        minSdk = flutter.minSdkVersion
+        targetSdk = 36
 
         versionCode = flutter.versionCode
         versionName = flutter.versionName
