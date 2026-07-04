@@ -1,3 +1,4 @@
+// Main entry point DigiNews Indonesia
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
