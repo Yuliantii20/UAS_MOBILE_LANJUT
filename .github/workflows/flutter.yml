@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -19,15 +18,27 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: "17"
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.35.2'
+          flutter-version: "3.35.2"
 
       - name: Install Dependencies
         run: flutter pub get
+
+      - name: Patch Isar Namespace
+        run: |
+          FILE="$HOME/.pub-cache/hosted/pub.dev/isar_flutter_libs-3.1.0+1/android/build.gradle"
+
+          echo "Before patch:"
+          cat "$FILE"
+
+          sed -i '/android {/a\    namespace "dev.isar.isar_flutter_libs"' "$FILE"
+
+          echo "After patch:"
+          cat "$FILE"
 
       - name: Build APK
         run: flutter build apk --release
