@@ -28,11 +28,17 @@ jobs:
       - name: Install Dependencies
         run: flutter pub get
 
-      - name: Find Isar
+      - name: Install Android SDK 35
+        run: |
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-35"
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "build-tools;35.0.0"
+
+      - name: Find Isar build.gradle
         run: |
           find ~/.pub-cache -name build.gradle | grep isar_flutter_libs
 
-      - name: Patch Isar Namespace
+      - name: Patch Isar
         run: |
           FILE=$(find ~/.pub-cache -name build.gradle | grep isar_flutter_libs)
 
@@ -43,10 +49,27 @@ jobs:
             exit 1
           fi
 
-          grep namespace "$FILE" || sed -i '/android {/a\    namespace "dev.isar.isar_flutter_libs"' "$FILE"
+          python3 <<EOF
+from pathlib import Path
 
-          echo "========== HASIL PATCH =========="
-          cat "$FILE"
+file = Path("$FILE")
+text = file.read_text()
+
+if 'namespace "dev.isar.isar_flutter_libs"' not in text:
+    text = text.replace(
+        "android {",
+        'android {\n    namespace "dev.isar.isar_flutter_libs"'
+    )
+
+text = text.replace(
+    "compileSdkVersion 30",
+    "compileSdkVersion 35"
+)
+
+file.write_text(text)
+
+print(file.read_text())
+EOF
 
       - name: Build APK
         run: flutter build apk --release
